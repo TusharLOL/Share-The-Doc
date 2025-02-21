@@ -36,7 +36,6 @@ export async function DELETE(
     }
   }
 
-  // Delete session from DB
   await deleteSession(sessionId);
 
   return NextResponse.json({ message: "Files deleted successfully" });
