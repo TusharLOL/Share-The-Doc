@@ -20,6 +20,21 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment Variables
+
+Before running the project, ensure you have a `.env` file in the root directory with the following environment variables:
+
+```env
+CLOUDINARY_KEY=<your_cloudinary_key>
+CLOUDINARY_SECRET=<your_cloudinary_secret>
+CLOUDINARY_URL=<your_cloudinary_url>
+CLOUD_NAME=<your_cloud_name>
+
+MONGODB_URI=<your_mongodb_uri>
+```
+
+Replace `<your_cloudinary_key>`, `<your_cloudinary_secret>`, `<your_cloudinary_url>`, `<your_cloud_name>`, and `<your_mongodb_uri>` with your actual credentials.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
