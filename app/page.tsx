@@ -23,17 +23,37 @@ export default function Home() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFiles = Array.from(e.target.files);
-      setFiles((prev) => [...prev, ...selectedFiles]);
+
+      const validFiles = selectedFiles.filter((file) => {
+        if (file.size > 3 * 1024 * 1024) {
+          toast.error(`File ${file.name} is larger than 3MB and will be skipped.`);
+          return false;
+        }
+        return true;
+      });
+  
+      if (validFiles.length === 0) {
+        toast.error("No valid files selected. Please select files under 3MB.");
+        return;
+      }
+  
+      setFiles((prev) => [...prev, ...validFiles]);
     }
   };
+  
 
   const handleUpload = async () => {
-    if (files.length === 0) return;
+    if (files.length === 0) {
+      toast.error("No files selected.");
+      return;
+    }
+
     setUploading(true);
 
     const formData = new FormData();
-    files.forEach((file) => {
+    files.forEach((file, index) => {
       formData.append("files", file);
+      console.log(`Appending file ${index}:`, file.name, file.size, file.type);
     });
 
     try {
@@ -41,10 +61,12 @@ export default function Home() {
         method: "POST",
         body: formData,
       });
+
       const data = await res.json();
+      console.log("Upload response:", data);
+
       if (res.ok) {
         toast.success("Files uploaded successfully!");
-        // Redirect to the download page using the returned session URL
         router.push(data.redirectUrl);
       } else {
         throw new Error(data.message || "Error uploading files");
@@ -56,6 +78,7 @@ export default function Home() {
       setUploading(false);
     }
   };
+
 
   const handleRemoveFile = (index: number) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
