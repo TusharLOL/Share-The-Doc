@@ -25,6 +25,7 @@ const uploadFileToCloudinary = async (file: File) => {
         resource_type: "auto",
         folder: "uploads",
         public_id: `uploads/${file.name.split(".")[0]}-${generateUUID()}`,
+        chunk_size: 6000000,
       },
       (error, result) => (error ? reject(error) : resolve(result))
     );
@@ -77,3 +78,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Error processing files", error: error.message }, { status: 500 });
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "50mb",
+    },
+    responseLimit: false,
+  },
+};
