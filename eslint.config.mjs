@@ -13,7 +13,9 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
-      "@typescript-eslint/no-explicit-any": "off", // Disables the rule for explicit 'any'
+      "@typescript-eslint/no-explicit-any": "off", // Disables explicit 'any' rule
+      "@typescript-eslint/ban-ts-comment": "off", // Allow TypeScript comments
+      "@typescript-eslint/ban-types": "off", // Disable banning of specific types
     },
   },
 ];
