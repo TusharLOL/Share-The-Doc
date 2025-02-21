@@ -12,10 +12,13 @@ cloudinary.config({
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { sessionId: string } }
+  { params }: { params: Promise<{ sessionId: string }> }
 ) {
-  const { sessionId } = params;
+  // Await the params promise to extract the sessionId
+  const { sessionId } = await params;
+
   await connectToDatabase();
+
   console.log(`API Called: /api/delete/${sessionId}`);
 
   // Retrieve session from MongoDB
