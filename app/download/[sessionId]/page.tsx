@@ -15,7 +15,6 @@ export default function DownloadPage() {
   const { sessionId } = useParams();
   const { Canvas } = useQRCode();
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
-  const [files, setFiles] = useState<FileData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -38,9 +37,7 @@ export default function DownloadPage() {
         toast.error(data.message || "Error downloading files");
         return;
       }
-  
-      setFiles(data.files);
-  
+
       // Download each file by fetching it as a blob and creating an object URL
       data.files.forEach(async (file: FileData) => {
         try {

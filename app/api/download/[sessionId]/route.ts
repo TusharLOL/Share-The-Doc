@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
-import { getSession, deleteSession } from "@/lib/db";
+import { getSession } from "@/lib/db";
 import { v2 as cloudinary } from "cloudinary";
 
 // Configure Cloudinary
