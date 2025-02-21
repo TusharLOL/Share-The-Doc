@@ -50,32 +50,71 @@ const retryUpload = async (file: File, attempts = 3) => {
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
-    const files = formData.getAll("files").filter((file) => file instanceof File) as File[];
+    const files = formData.getAll("files");
 
-    console.log("📂 Files received in API:", files);
-
-    if (!files.length) {
-      console.error("🚨 No valid files uploaded!");
-      return NextResponse.json({ message: "No valid files uploaded" }, { status: 400 });
+    if (!files || files.length === 0) {
+      return NextResponse.json(
+        { message: "No files uploaded" },
+        { status: 400 }
+      );
     }
 
-    // Parallel uploads with retry logic
-    const uploadPromises = files.map((file) => retryUpload(file));
-    const uploadedFiles = (await Promise.all(uploadPromises)).filter(Boolean);
-
-    if (uploadedFiles.length === 0) {
-      return NextResponse.json({ message: "No files were successfully uploaded" }, { status: 400 });
-    }
-
-    // Save session in DB
     const sessionId = generateUUID();
+    const uploadedFiles: Array<{
+      public_id: string;
+      filename: string;
+      format: string;
+    }> = [];
+    const failedFiles: string[] = [];
+
+    for (const file of files) {
+      if (file instanceof File) {
+        console.log("⬆️ Uploading file to Cloudinary:", file.name);
+
+        const uploadResult = await retryUpload(file);
+        if (uploadResult) {
+          uploadedFiles.push({
+            public_id: uploadResult.public_id,
+            filename: uploadResult.original_filename,
+            format: uploadResult.format,
+          });
+        } else {
+          failedFiles.push(file.name);
+        }
+      }
+    }
+
+    // Return response early to prevent timeout
+    console.log("✅ Upload successful. Returning early response...");
+    const responsePayload: {
+      sessionId: string;
+      redirectUrl: string;
+      files: Array<{ public_id: string; filename: string; format: string }>;
+      failedFiles?: string[];
+    } = {
+      sessionId,
+      redirectUrl: `/download/${sessionId}`,
+      files: uploadedFiles,
+    };
+
+    if (failedFiles.length > 0) {
+      responsePayload["failedFiles"] = failedFiles;
+    }
+
+    // Send response early to prevent timeout
+    const response = NextResponse.json(responsePayload);
+
+    // Process DB update in background
     await createSession(sessionId, uploadedFiles);
+    console.log("✅ Session created!");
 
-    return NextResponse.json({ sessionId, redirectUrl: `/download/${sessionId}`, files: uploadedFiles });
-
+    return response;
   } catch (error: any) {
     console.error("❌ Error processing files:", error);
-    return NextResponse.json({ message: "Error processing files", error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { message: "Error processing files", error: error.message },
+      { status: 500 }
+    );
   }
 }
 
