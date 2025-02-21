@@ -1,9 +1,10 @@
 // app/page.tsx
 "use client";
 
-import toast from "react-hot-toast";
-import { useState } from "react";
+import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]);
@@ -31,16 +32,15 @@ export default function Home() {
         }
         return true;
       });
-  
+
       if (validFiles.length === 0) {
         toast.error("No valid files selected. Please select files under 3MB.");
         return;
       }
-  
+
       setFiles((prev) => [...prev, ...validFiles]);
     }
   };
-  
 
   const handleUpload = async () => {
     if (files.length === 0) {
@@ -85,10 +85,10 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen p-4">
+      <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full max-w-md">
         <div
-          className="border-2 border-dashed border-gray-300 p-6 text-center cursor-pointer"
+          className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
@@ -101,15 +101,15 @@ export default function Home() {
           />
           <label htmlFor="fileInput" className="cursor-pointer">
             {files.length > 0 ? (
-              <ul className="text-gray-700">
+              <ul className="">
                 {files.map((file, index) => (
-                  <li key={index} className="flex justify-between items-center">
-                    <span>{file.name}</span>
+                  <li key={index} className="flex justify-between items-center border p-3 rounded-lg my-2 shadow-xl">
+                    <span className="truncate">{file.name}</span>
                     <button
                       onClick={() => handleRemoveFile(index)}
                       className="text-red-500 hover:text-red-700"
                     >
-                      Remove
+                      <Trash size={24} />
                     </button>
                   </li>
                 ))}
