@@ -39,6 +39,7 @@ const retryUpload = async (file: File, attempts = 3) => {
       return await uploadFileToCloudinary(file);
     } catch (error) {
       console.warn(`⚠️ Retry attempt ${i + 1} for file: ${file.name}`);
+      console.error("Error uploading file:", error);
     }
   }
   console.error(`❌ Failed to upload ${file.name} after ${attempts} attempts`);
