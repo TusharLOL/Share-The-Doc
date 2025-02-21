@@ -60,12 +60,12 @@ export async function POST(request: Request) {
     }
 
     const sessionId = generateUUID();
-    let uploadedFiles: Array<{
+    const uploadedFiles: Array<{
       public_id: string;
       filename: string;
       format: string;
     }> = [];
-    let failedFiles: string[] = [];
+    const failedFiles: string[] = [];
 
     for (const file of files) {
       if (file instanceof File) {
