@@ -12,10 +12,10 @@ cloudinary.config({
 
 export async function DELETE(
   request: Request,
-  context: { params: { sessionId: string } }
+  { params }: { params: { sessionId: string } }
 ) {
   await connectToDatabase();
-  const { sessionId } = context.params;
+  const { sessionId } = params;
 
   console.log(`API Called: /api/delete/${sessionId}`);
 
