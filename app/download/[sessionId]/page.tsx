@@ -38,7 +38,6 @@ export default function DownloadPage() {
         return;
       }
 
-      // Download each file by fetching it as a blob and creating an object URL
       data.files.forEach(async (file: FileData) => {
         try {
           const fileResponse = await fetch(file.url);
@@ -52,7 +51,6 @@ export default function DownloadPage() {
           link.click();
           document.body.removeChild(link);
 
-          // Cleanup object URL after download
           window.URL.revokeObjectURL(objectUrl);
         } catch (error) {
           console.error(`Error downloading ${file.filename}:`, error);
