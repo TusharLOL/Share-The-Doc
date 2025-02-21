@@ -12,10 +12,12 @@ cloudinary.config({
 
 export async function GET(
   request: Request,
-  context: { params: { sessionId: string } }
+  { params }: { params: Promise<{ sessionId: string }> }
 ) {
+  // Await the params promise to extract the sessionId
+  const { sessionId } = await params;
+
   await connectToDatabase();
-  const { sessionId } = context.params;
 
   console.log(`API Called: /api/download/${sessionId}`);
 
