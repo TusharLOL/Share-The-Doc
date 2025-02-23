@@ -1,5 +1,4 @@
-import { Check } from "lucide-react";
-import React from "react";
+import { CheckSquare } from "lucide-react";
 
 type variant = "success" | "error";
 type variants = {
@@ -23,7 +22,7 @@ const Toast = ({ t, variant, message }: { t: any, variant: variant, message: str
             background: "bg-green-200",
             text: "text-green-800",
             border: "border-green-300",
-            icon: <Check className="w-5 h-5 text-green-800 mr-2 flex-shrink-0" />,
+            icon: <CheckSquare className="w-5 h-5 text-green-800 mr-2 flex-shrink-0" />,
         },
         error: {
             background: "bg-red-200",
@@ -57,7 +56,9 @@ const Toast = ({ t, variant, message }: { t: any, variant: variant, message: str
                 }`}
             style={{ minWidth: "250px", maxWidth: "300px" }}
         >
-            {currentVariant.icon}
+            <p className="flex-shrink-0 p-1">
+                {currentVariant.icon}
+            </p>
             <div className={`flex-grow ${currentVariant.text}`}>
                 <p className="text-sm">
                     {message}

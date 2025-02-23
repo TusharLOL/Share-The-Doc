@@ -1,6 +1,7 @@
 // app/page.tsx
 "use client";
 
+import Toast from "@/components/Toast";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -27,14 +28,22 @@ export default function Home() {
 
       const validFiles = selectedFiles.filter((file) => {
         if (file.size > 3 * 1024 * 1024) {
-          toast.error(`File ${file.name} is larger than 3MB and will be skipped.`);
+          toast.custom((t: any) => (
+            <Toast
+              message={`File ${file.name} is larger than 3MB and will be skipped.`}
+              t={t}
+              variant="error"
+            />
+          ));
           return false;
         }
         return true;
       });
 
       if (validFiles.length === 0) {
-        toast.error("No valid files selected. Please select files under 3MB.");
+        toast.custom((t: any) => (
+          <Toast message="No files selected." t={t} variant="error" />
+        ));
         return;
       }
 
@@ -44,7 +53,9 @@ export default function Home() {
 
   const handleUpload = async () => {
     if (files.length === 0) {
-      toast.error("No files selected.");
+      toast.custom((t: any) => (
+        <Toast message="No files selected." t={t} variant="error" />
+      ));
       return;
     }
 
@@ -66,14 +77,18 @@ export default function Home() {
       console.log("Upload response:", data);
 
       if (res.ok) {
-        toast.success("Files uploaded successfully!");
+        toast.custom((t: any) => (
+          <Toast message="Files uploaded successfully!" t={t} variant="success" />
+        ));
         router.push(data.redirectUrl);
       } else {
         throw new Error(data.message || "Server is slow to respond please try it locally this will not work on vercel");
       }
     } catch (error: any) {
       console.error("Upload error:", error);
-      toast.error("Server is slow to respond please try it locally this will not work on vercel");
+      toast.custom((t: any) => (
+        <Toast message={error.message || "Error uploading files"} t={t} variant="error" />
+      ));
     } finally {
       setUploading(false);
     }
@@ -85,7 +100,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center my-20 p-4">
+    <div className="flex items-center justify-center my-40 p-4">
       <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full max-w-md">
         <div
           className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer"
