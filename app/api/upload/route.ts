@@ -2,12 +2,15 @@ import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import { createSession } from "@/lib/db";
 import { generateUUID } from "@/lib/uuid";
+import { connectToDatabase } from "@/lib/mongodb";
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUDINARY_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
 });
+
+connectToDatabase();
 
 // Function to upload a single file to Cloudinary
 const uploadFileToCloudinary = async (file: File) => {
@@ -101,10 +104,8 @@ export async function POST(request: Request) {
       responsePayload["failedFiles"] = failedFiles;
     }
 
-    // Send response early to prevent timeout
     const response = NextResponse.json(responsePayload);
 
-    // Process DB update in background
     await createSession(sessionId, uploadedFiles);
     console.log("✅ Session created!");
 

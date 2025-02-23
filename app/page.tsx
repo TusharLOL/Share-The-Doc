@@ -69,11 +69,11 @@ export default function Home() {
         toast.success("Files uploaded successfully!");
         router.push(data.redirectUrl);
       } else {
-        throw new Error(data.message || "Error uploading files");
+        throw new Error(data.message || "Server is slow to respond please try it locally this will not work on vercel");
       }
     } catch (error: any) {
       console.error("Upload error:", error);
-      toast.error("Error uploading files");
+      toast.error("Server is slow to respond please try it locally this will not work on vercel");
     } finally {
       setUploading(false);
     }
@@ -85,7 +85,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
+    <div className="flex items-center justify-center my-20 p-4">
       <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full max-w-md">
         <div
           className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer"
