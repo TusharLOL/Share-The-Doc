@@ -67,8 +67,7 @@ export default function DownloadPage() {
       });
 
       toast.custom((t: any) => (
-        <Toast message="Files downloaded successfully!" t={t} variant="success"
-        />
+        <Toast message="Downloading started..." t={t} variant="success" />
       ));
     } catch (error) {
       console.error("Download error:", error);
@@ -112,62 +111,62 @@ export default function DownloadPage() {
 
   return (
     <>
-     <Head>
+      <Head>
         <title>Download</title>
         <meta name="description" content="Download your shared files from Share-The-Doc." />
       </Head>
-    <div className="flex flex-col items-center justify-center my-20 p-4">
-      <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full max-w-md text-center">
-        <h1 className="text-xl font-bold mb-4 border-b">Download Your Files</h1>
-        <div className="flex items-center justify-center mb-4">
+      <div className="flex flex-col items-center justify-center my-20 p-4">
+        <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full max-w-md text-center">
+          <h1 className="text-xl font-bold mb-4 border-b">Download Your Files</h1>
+          <div className="flex items-center justify-center mb-4">
 
-          {downloadUrl ? (
-            <Canvas
-              text={downloadUrl}
-              options={{
-                type: "svg",
-                quality: 0.3,
-                errorCorrectionLevel: "M",
-                margin: 3,
-                scale: 4,
-                width: 200,
-                color: {
-                  dark: "#010599FF",
-                  light: "#FFBF60FF",
-                },
-              }}
+            {downloadUrl ? (
+              <Canvas
+                text={downloadUrl}
+                options={{
+                  type: "svg",
+                  quality: 0.3,
+                  errorCorrectionLevel: "M",
+                  margin: 3,
+                  scale: 4,
+                  width: 200,
+                  color: {
+                    dark: "#010599FF",
+                    light: "#FFBF60FF",
+                  },
+                }}
+              />
+            ) : (
+              <p>Generating QR Code...</p>
+            )}
+
+          </div>
+          <div className="flex items-center justify-center mb-4">
+            <input
+              type="text"
+              readOnly
+              value={downloadUrl || ""}
+              className="border p-2 rounded-l-lg w-full text-black"
             />
-          ) : (
-            <p>Generating QR Code...</p>
-          )}
+            <button
+              onClick={handleCopy}
+              className="py-2 px-4 border rounded-r-lg">
+              <Clipboard
+                className="cursor-pointer"
+              />
+            </button>
+          </div>
 
-        </div>
-        <div className="flex items-center justify-center mb-4">
-          <input
-            type="text"
-            readOnly
-            value={downloadUrl || ""}
-            className="border p-2 rounded-l-lg w-full text-black"
-          />
           <button
-            onClick={handleCopy}
-            className="py-2 px-4 border rounded-r-lg">
-            <Clipboard
-              className="cursor-pointer"
-            />
+            onClick={handleDownload}
+            disabled={loading}
+            className={`bg-blue-500 py-2 px-4 rounded hover:bg-blue-600 ${loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+          >
+            {loading ? "Downloading..." : "Download Files"}
           </button>
         </div>
-
-        <button
-          onClick={handleDownload}
-          disabled={loading}
-          className={`bg-blue-500 py-2 px-4 rounded hover:bg-blue-600 ${loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-        >
-          {loading ? "Downloading..." : "Download Files"}
-        </button>
       </div>
-    </div>
     </>
   );
 }
