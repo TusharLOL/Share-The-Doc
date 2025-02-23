@@ -1,7 +1,7 @@
 "use client";
 
 import Toast from "@/components/Toast";
-import { Check, CheckCircle, Clipboard } from "lucide-react";
+import { Check, Clipboard } from "lucide-react";
 import { useQRCode } from "next-qrcode";
 import { EmailIcon, EmailShareButton, LinkedinIcon, LinkedinShareButton, TelegramIcon, TelegramShareButton, WhatsappIcon, WhatsappShareButton } from "next-share";
 import Head from "next/head";
