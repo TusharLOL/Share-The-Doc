@@ -80,7 +80,7 @@ export default function Home() {
         toast.custom((t: any) => (
           <Toast message="Files uploaded successfully!" t={t} variant="success" />
         ));
-        router.push(data.redirectUrl);
+        router.push(data.redirectUrl + "?user=me");
       } else {
         throw new Error(data.message || "Server is slow to respond please try it locally this will not work on vercel");
       }
@@ -93,7 +93,6 @@ export default function Home() {
       setUploading(false);
     }
   };
-
 
   const handleRemoveFile = (index: number) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
