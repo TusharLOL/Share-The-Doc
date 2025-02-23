@@ -94,7 +94,7 @@ export default function DownloadPage() {
 
 
   return (
-    <div className="flex flex-col items-center justify-center  p-4">
+    <div className="flex flex-col items-center justify-center my-20 p-4">
       <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full max-w-md text-center">
         <h1 className="text-xl font-bold mb-4 border-b">Download Your Files</h1>
         <div className="flex items-center justify-center mb-4">
