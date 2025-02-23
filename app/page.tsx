@@ -109,6 +109,7 @@ export default function Home() {
         >
           <input
             type="file"
+            accept="image/*"
             className="hidden"
             id="fileInput"
             onChange={handleFileChange}
@@ -136,6 +137,7 @@ export default function Home() {
             )}
           </label>
         </div>
+        <p className="text-center mt-3 text-red-500">Currently, only image uploads are supported.*</p>
         <button
           onClick={handleUpload}
           disabled={uploading || files.length === 0}
