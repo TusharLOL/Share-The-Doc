@@ -1,51 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Share-The-Doc
 
-## Getting Started
+## 📄 About the Project
+Share-The-Doc is a simple and efficient web application for seamless document sharing. It allows users to upload documents, generate shareable links, and access files easily. Built using Next.js and Node.js, this project ensures a smooth and fast experience.
 
-First, run the development server:
+## 🚀 Features
+- 📂 Upload documents securely
+- 🔗 Generate unique shareable links
+- 🔍 Access and download shared documents easily
+- 🛠️ Lightweight and fast performance
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Tech Stack
+- **Frontend**: Next.js, React
+- **Backend**: Node.js, Express.js
+- **Storage**: Cloudinary Cloud Staorage.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 💻 Installation
+To set up and run the project locally, follow these steps:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/TusharLOL/Share-The-Doc.git
+   cd Share-The-Doc
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Install dependencies**
+   ```sh
+   npm install
+   ```
 
-## Environment Variables
+3. **Start the development server**
+   ```sh
+   npm run dev
+   ```
 
-Before running the project, ensure you have a `.env` file in the root directory with the following environment variables:
+4. **Open the app in your browser**
+   ```
+   http://localhost:3000
+   ```
 
-```env
-CLOUDINARY_KEY=<your_cloudinary_key>
-CLOUDINARY_SECRET=<your_cloudinary_secret>
-CLOUDINARY_URL=<your_cloudinary_url>
-CLOUD_NAME=<your_cloud_name>
+## 🎯 Usage
+1. Upload a document using the web interface.
+2. Copy the generated shareable link.
+3. Share the link with others for easy document access.
 
-MONGODB_URI=<your_mongodb_uri>
-```
+## 🤝 Contributing
+Contributions are welcome! If you’d like to contribute:
+- Fork the repository
+- Create a new branch (`feature-branch`)
+- Commit your changes
+- Push the branch and create a Pull Request
 
-Replace `<your_cloudinary_key>`, `<your_cloudinary_secret>`, `<your_cloudinary_url>`, `<your_cloud_name>`, and `<your_mongodb_uri>` with your actual credentials.
+## 📜 License
+This project is licensed under the MIT License.
 
-## Learn More
+## 📬 Contact
+For any questions or suggestions, feel free to reach out!
+- **GitHub**: [TusharLOL](https://github.com/TusharLOL)
+- **Email**: [Your Email Here]
 
-To learn more about Next.js, take a look at the following resources:
+Happy Coding! 🚀
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
