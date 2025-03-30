@@ -56,7 +56,7 @@ This project is licensed under the MIT License.
 ## 📬 Contact
 For any questions or suggestions, feel free to reach out!
 - **GitHub**: [TusharLOL](https://github.com/TusharLOL)
-- **Email**: [Your Email Here]
+- **Email**: tushdontulwar@gmail.com
 
 Happy Coding! 🚀
 
